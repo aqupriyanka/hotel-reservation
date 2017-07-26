@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/public/css/style.css"> -->
+  	<script src="https://code.jquery.com/jquery.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="jumbotron">
+			<h1><strong>Hotel Reservation</strong>
+			</h2>
+			<h2>Make an hotel Reservation</h2>
+			<button class="btn btn-primary" id="reserve"><a href="/reserve" style="color: white">Make Reservation</a></button>
+		</div>
+	</div>
+	<div class="container" id="viewTablesDiv">
+		<div class="panel panel-default" id="viewPanel">
+			<div class="panel-heading">Reserved Tables</div>
+			<div class="panel-body" id="panelBody">
+				
+			</div>
+		</div>
+	</div>
+	<div class="container" id="waitingListDiv">
+		<div class="panel panel-default">
+			<div class="panel-heading">Waiting List</div>
+			<div class="panel-body" id="waitingPanelBody">
+				
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+	      <div class="container">
+		        <p><a href="/view">View Tables</a> | <a href="/reserve">Reserve Table</a> | <a href="https://github.com/aqupriyanka/hotel-reservation">GitHub Repo</a></p>
+	      </div>
+	</footer>
+
+	<script type="text/javascript">
+	    var currentURL = window.location.origin;
+	    $("#viewTablesDiv").hide();
+	    $("#waitingListDiv").hide();
+
+		
+		$.get(currentURL + "/viewTable", function(data){
+				var reservedTables = data.tables;
+				var waitingList = data.waiting;
+				console.log("RESERVED ::",reservedTables);
+				console.log("WAITING ::",waitingList);
+
+				// var panel = $("div").addClass("panel panel-default");
+				// var panelHeading = $("div").addClass("panel-heading");
+				// var panelBody = $("#panelBody");
+				var waitingPanel = $("#waitingPanelBody");
+
+				// panel.append(panelHeading);
+
+			if(reservedTables.length != 0){
+				
+				for(var i=0; i<reservedTables.length; i++){
+
+					var pb = $("<div>");
+					// pb.addClass("label label-primary");
+					pb.attr("id",(i+1));
+					$("#panelBody").append(pb);
+
+
+					$("#"+(i+1)).append('<h2>'+ (i+1) + " -- " +reservedTables[i].name + '</h2>');
+
+
+				}
+
+				
+
+	   			 // $("#viewTablesDiv").append(panel);
+	   			 $("#viewTablesDiv").show();
+
+
+			}
+
+			if(waitingList.length != 0){
+
+
+				for(var i=0; i<waitingList.length; i++){
+
+					// var user = $("h2").text((i+1) + " -- " + waitingList[i].name);
+					// waitingPanel.append(user);
+
+					var pb = $("<div>");
+					pb.append('<h2>'+ (i+1) + " -- " +waitingList[i].name + '</h2>');
+					// pb.addClass("label label-primary");
+					// pb.attr("id",(i+1));
+					$("#waitingPanelBody").append(pb);
+
+
+
+
+				}
+	    		$("#waitingListDiv").show();
+
+			}
+			});
+
+
+	</script>
+</body>
+</html>

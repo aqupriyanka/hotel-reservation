@@ -1,0 +1,27 @@
+{
+  "name": "hotel-reservation",
+  "version": "1.0.0",
+  "description": "reserve a seat in hotel",
+  "engines": {
+    "node": "6.10.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aqupriyanka/hotel-reservation.git"
+  },
+  "author": "Priyanka Arora",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aqupriyanka/hotel-reservation/issues"
+  },
+  "homepage": "https://github.com/aqupriyanka/hotel-reservation#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "path": "^0.12.7"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/public/css/style.css"> -->
+  	<script src="https://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1><strong>Hotel Reservation</strong>
+			</h2>
+			<h2>Make an hotel Reservation</h2>
+			<button class="btn btn-danger" id="viewTables">
+			<a href="/view" style="color: white">View Tables</a></button>
+		</div>
+	</div>
+	<div class="container">
+	<div class="panel panel-primary" width="500" height="600">
+		<div class="panel-heading">Make A Reservation</div>
+		<div class="panel-body">
+			Name : <input type="text" name="name" id="name" class="form-control">
+			email : <input type="email" name="email" id="email" class="form-control">
+			Contact Number : <input type="text" name="phnNum" id="phnNum" class="form-control">
+			Unique ID : <input type="text" name="uniqueId" id="uniqueId" class="form-control">
+
+			<button class="btn btn-primary" id="submit">Submit</button>
+		</div>
+	</div>
+	</div>
+
+	<footer class="footer">
+	      <div class="container">
+		        <p><a href="/view">View Tables</a> | <a href="/reserve">Reserve Table</a> | <a href="https://github.com/aqupriyanka/hotel-reservation">GitHub Repo</a></p>
+	      </div>
+	</footer>
+
+	<script type="text/javascript">
+		$("#submit").on("click",function(){
+			var userData = {
+			 "name" : $("#name").val(),
+			 "email" : $("#email").val(),
+			 "phnNum" :$("#phnNum").val(),
+			 "uniqueId" : $("#uniqueId").val()
+			};
+
+	    	var currentURL = window.location.origin;
+
+			$.post(currentURL + "/reserve", userData, function(data){
+				var reservedTables = data.tables;
+				var waitingList = data.waiting;
+				var reservationMade = data.reservationMade;
+				if(reservationMade){
+					alert("Reaservaation Made. Please view Tables");
+				} else{
+					alert("Sorry, added in Waiting List");
+				}
+				console.log("RESERVED ::",reservedTables);
+				console.log("WAITING ::",waitingList);
+				$("#name").val("");
+				$("#email").val("");
+			 	$("#phnNum").val("");
+			 	$("#uniqueId").val("");
+			});
+		})
+	</script>
+</body>
+</html>
